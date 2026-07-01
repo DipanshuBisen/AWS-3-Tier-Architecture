@@ -11,6 +11,9 @@ terraform {
 
 # AWS Default Regions
 
-Provider "aws" {
-   regions = "ap-south-1"
+provider "aws" {
+   region = "ap-south-1"
 }
+
+
+
