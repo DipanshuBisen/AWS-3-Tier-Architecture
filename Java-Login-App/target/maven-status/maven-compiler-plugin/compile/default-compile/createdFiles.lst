@@ -1,0 +1,5 @@
+com/example/loginapp/controller/LoginController.class
+com/example/loginapp/LoginappApplication.class
+com/example/loginapp/repository/UserRepository.class
+com/example/loginapp/service/UserService.class
+com/example/loginapp/model/User.class
