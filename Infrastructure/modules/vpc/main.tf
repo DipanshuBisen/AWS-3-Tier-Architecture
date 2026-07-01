@@ -35,3 +35,16 @@ resource "aws_subnet" "public" {
     Environment = var.environment
   }
 }
+
+#Private subnet
+resource "aws_subnet" "private" {
+  count = length(var.private_subnets)
+  vpc_id = aws_vpc.main.id
+  cidr_block = var.private_subnets[count.index]
+  availability_zone = var.azs[count.index]
+
+  tags = {
+    Name = "${var.environment}-private-subnet-${count.index + 1}"
+    Environment = var.environment
+  }
+}
