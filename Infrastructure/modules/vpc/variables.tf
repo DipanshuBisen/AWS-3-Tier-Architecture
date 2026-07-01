@@ -13,7 +13,6 @@ variable "public_subnets" {
   type = list(string)
 }
 
-<<<<<<< HEAD
 variable "private_subnets" {
   description = "CIDR block for private subnets"
   type = list(string)
@@ -24,5 +23,3 @@ variable "azs" {
   type = list(string)
 }
 
-=======
->>>>>>> f21089abc854c59c73d3e637c130c90bc32d5b81

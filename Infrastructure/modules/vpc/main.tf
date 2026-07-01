@@ -25,7 +25,6 @@ resource "aws_internet_gateway" "main" {
 resource "aws_subnet" "public" {
   count = length(var.public_subnets)
   vpc_id = aws_vpc.main.id
-<<<<<<< HEAD
   cidr_block = var.public_subnets[count.index]
   availability_zone = var.azs[count.index]
 
@@ -35,6 +34,4 @@ resource "aws_subnet" "public" {
     Name = "${var.environment}-public-subnet-${count.index + 1}"
     Environment = var.environment
   }
-=======
->>>>>>> f21089abc854c59c73d3e637c130c90bc32d5b81
 }
