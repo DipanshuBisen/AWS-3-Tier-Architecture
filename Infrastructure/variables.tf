@@ -20,6 +20,7 @@ variable "public_subnets" {
   description = "CIDR block of public subnets"
   type = list(string)
   default = [ "192.168.1.0/24", "192.168.2.0/24" ]
+<<<<<<< HEAD
 }
 
 
@@ -33,4 +34,6 @@ variable "azs" {
   description = "List of Availability Zones"
   type = list(string)
   default = [ "ap-south-1a", "ap-south-1b" ]
+=======
+>>>>>>> f21089abc854c59c73d3e637c130c90bc32d5b81
 }
