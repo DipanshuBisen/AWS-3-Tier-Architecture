@@ -10,7 +10,6 @@ terraform {
 }
 
 # AWS Default Regions
-
 provider "aws" {
-   regions = "ap-south-1"
+  region = var.AWS_region
 }
