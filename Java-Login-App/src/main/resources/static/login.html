@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Login App</title>
+</head>
+
+<body>
+
+<h2>Java Login App</h2>
+
+<input type="text" id="username" placeholder="Enter Username">
+
+<br><br>
+
+<input type="password" id="password" placeholder="Enter Password">
+
+<br><br>
+
+<button onclick="registerUser()">Register</button>
+
+<button onclick="loginUser()">Login</button>
+
+<button onclick="getUsers()">Get All Users</button>
+
+<br><br>
+
+<div id="message"></div>
+
+<div id="userList"></div>
+
+<script>
+
+function registerUser() {
+
+    fetch('/register', {
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        })
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+        document.getElementById('message').innerHTML = data;
+    });
+}
+
+
+function loginUser() {
+
+    fetch('/login', {
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        })
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+        document.getElementById('message').innerHTML = data;
+    });
+}
+
+
+function getUsers() {
+
+    fetch('/users')
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let output = "<h3>Registered Users</h3>";
+
+        data.forEach(user => {
+
+            output += "<p>" + user.username + "</p>";
+
+        });
+
+        document.getElementById('userList').innerHTML = output;
+
+    });
+}
+
+</script>
+
+</body>
+</html>
