@@ -70,3 +70,32 @@ variable "storage_type" {
   type = string
   default = "gp2"
 }
+
+variable "instance_type" {
+  description = "Insatnace type for ASG"
+  type = string
+  default = "t3.micro"
+}
+
+variable "key_name" {
+  description = "Name of the SSH key pair"
+  type        = string
+}
+
+variable "asg_min_size" {
+  description = "Minimum size of the Auto Scaling Group"
+  type        = number
+  default     = 2
+}
+
+variable "asg_max_size" {
+  description = "Maximum size of the Auto Scaling Group"
+  type        = number
+  default     = 6
+}
+
+variable "asg_desired_capacity" {
+  description = "Desired capacity of the Auto Scaling Group"
+  type        = number
+  default     = 2
+}

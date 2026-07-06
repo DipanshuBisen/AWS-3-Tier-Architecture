@@ -3,6 +3,11 @@ variable "environment" {
   type = string
 }
 
+variable "vpc_id" {
+  description = "VPC ID"
+  type        = string
+}
+
 variable "instance_type" {
   description = "give instance type for temlpate"
   type = string
