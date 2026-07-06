@@ -29,3 +29,18 @@ variable "db_password" {
   type = string
   sensitive = true
 }
+
+variable "security_group_ids" {
+  description = "List of security group ids"
+  type = list(string)
+}
+
+variable "instance_class" {
+  description = "give the instance class name "
+  type = string
+}
+
+variable "storage_type" {
+  description = "Give the storage type name "
+  type = string
+}
