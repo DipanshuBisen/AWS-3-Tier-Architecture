@@ -14,7 +14,7 @@ resource "aws_cloudwatch_log_group" "application" {
 #RDS cloudwatch alarm
 resource "aws_cloudwatch_metric_alarm" "rds_cpu" {
   alarm_name = "${var.environment}-rds-high-cpu"
-  comparison_operator = "GreaterThanThershold"
+  comparison_operator = "GreaterThanThreshold"
   evaluation_periods = "2"
   metric_name = "CPUUtilization"
   namespace = "AWS/RDS"

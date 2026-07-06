@@ -5,7 +5,7 @@ variable "vpc_cidr" {
 
 variable "environment" {
   description = "Environment Name"
-  type = strings
+  type = string
 }
 
 variable "public_subnets" {
