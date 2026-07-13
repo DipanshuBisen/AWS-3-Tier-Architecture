@@ -37,3 +37,11 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "main" {
 }
 
 #Add Routes for both VPCs
+<<<<<<< HEAD
+=======
+resource "aws_route" "bastion_to_main" {
+  route_table_id = module.bastion_vpc.bastion_public_route_table_id
+  destination_cidr_block = var.bastion_vpc_cidr 
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+>>>>>>> 354416a (start)

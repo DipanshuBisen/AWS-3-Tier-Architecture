@@ -10,10 +10,22 @@ variable "vpc_cidr" {
   default     = "192.168.0.0/16"
 }
 
+variable "bastion_vpc_cidr" {
+  description = "Bastion VPC CIDR"
+  type = string
+  default = "192.169.0.0/16"
+}
+
 variable "environment" {
   description = "Environment Name"
   type        = string
   default     = "dev"
+}
+
+variable "public_subnet_cidr_bastion" {
+  description = "CIDR for public subnet bastion"
+  type = string
+  default = "192.169.1.0/24"
 }
 
 variable "public_subnets" {
