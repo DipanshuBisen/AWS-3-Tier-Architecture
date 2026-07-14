@@ -1,5 +1,5 @@
-/home/bandaru/Documents/Projects/AWS-3-Tier-app/src/main/java/com/example/loginapp/LoginappApplication.java
-/home/bandaru/Documents/Projects/AWS-3-Tier-app/src/main/java/com/example/loginapp/controller/LoginController.java
-/home/bandaru/Documents/Projects/AWS-3-Tier-app/src/main/java/com/example/loginapp/model/User.java
-/home/bandaru/Documents/Projects/AWS-3-Tier-app/src/main/java/com/example/loginapp/repository/UserRepository.java
-/home/bandaru/Documents/Projects/AWS-3-Tier-app/src/main/java/com/example/loginapp/service/UserService.java
+/home/dipanshu/Documents/AWS-3-Tier-Architecture/Java-Login-App/src/main/java/com/example/loginapp/LoginappApplication.java
+/home/dipanshu/Documents/AWS-3-Tier-Architecture/Java-Login-App/src/main/java/com/example/loginapp/controller/LoginController.java
+/home/dipanshu/Documents/AWS-3-Tier-Architecture/Java-Login-App/src/main/java/com/example/loginapp/model/User.java
+/home/dipanshu/Documents/AWS-3-Tier-Architecture/Java-Login-App/src/main/java/com/example/loginapp/repository/UserRepository.java
+/home/dipanshu/Documents/AWS-3-Tier-Architecture/Java-Login-App/src/main/java/com/example/loginapp/service/UserService.java
