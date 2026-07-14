@@ -32,6 +32,7 @@ module "security" {
   environment            = var.environment
   vpc_id                 = module.vpc.vpc_id #This will take value from the output of vpc module
   allowed_ssh_cidr_block = var.allowed_ssh_cidr_block
+  bastion_vpc_id = module.bastion_vpc.bastion_vpc_id
 }
 
 #RDS module

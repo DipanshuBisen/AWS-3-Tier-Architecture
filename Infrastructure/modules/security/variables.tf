@@ -8,6 +8,11 @@ variable "vpc_id" {
   type = string
 }
 
+variable "bastion_vpc_id" {
+  description = "Bastion VPC ID"
+  type = string
+}
+
 variable "allowed_ssh_cidr_block" {
   description = "Lisst of CIDR block to SSH to bastion host"
   type = list(string)

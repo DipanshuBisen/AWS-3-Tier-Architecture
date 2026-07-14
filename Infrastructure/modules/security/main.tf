@@ -97,7 +97,7 @@ resource "aws_security_group" "db" {
 resource "aws_security_group" "bastion" {
   name = "${var.environment}-bastion-sg"
   description = "Security group for Bastion Host"
-  vpc_id = var.vpc_id
+  vpc_id = var.bastion_vpc_id
 
   ingress{
     from_port = 22
