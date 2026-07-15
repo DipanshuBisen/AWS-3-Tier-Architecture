@@ -84,3 +84,13 @@ module "monitoring" {
   rds_instance_id = module.rds.rds_insatnace_id
   asg_name        = module.asg.asg_name
 }
+
+#Bastion VPC
+module "bastion_vpc" {
+  source = "./modules/bastion_vpc"
+
+  environment = var.environment
+  vpc_cidr_bation = var.bastion_vpc_cidr
+  public_subnet_cidr_bastion = var.public_subnet_cidr_bastion
+  azs_bastion = [var.azs]
+}
