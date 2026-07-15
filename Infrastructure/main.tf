@@ -94,3 +94,13 @@ module "bastion_vpc" {
   public_subnet_cidr_bastion = var.public_subnet_cidr_bastion
   azs_bastion = [var.azs]
 }
+
+
+#Transit gateway
+module "transit_gateway" {
+  source = "./modules/tansit_gateway"
+
+  environment = var.environment
+  bastion_vpc_cidr = var.bastion_vpc_cidr
+  vpc_cidr = var.vpc_cidr
+}
