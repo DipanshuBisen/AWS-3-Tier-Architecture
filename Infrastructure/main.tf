@@ -103,5 +103,4 @@ module "transit_gateway" {
   environment = var.environment
   bastion_vpc_cidr = var.bastion_vpc_cidr
   vpc_cidr = var.vpc_cidr
-  
 }
