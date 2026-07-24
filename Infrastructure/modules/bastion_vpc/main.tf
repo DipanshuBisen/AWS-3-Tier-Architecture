@@ -48,3 +48,17 @@ resource "aws_route_table" "bastion" {
     Environment = var.environment
   }
 }
+
+#Bastion Host creation (Ec2 Instance)
+resource "aws_instance" "bastion" {
+  ami = "mi-01a00762f46d584a1"
+  instance_type = "t3.micro"
+  subnet_id = aws_subnet.public_bastion.id
+  associate_public_ip_address = true
+  vpc_security_group_ids = module.security.bastion_security_group_id
+
+  tags = {
+    Name = "${var.environment}-bastion-ec2"
+    Environment = var.environment
+  }
+}
