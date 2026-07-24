@@ -118,3 +118,30 @@ resource "aws_security_group" "bastion" {
         Environment = var.environment
   }
 }
+
+
+#Security Group for Jenkins Ec2 instance 
+resource "aws_security_group" "jenkins_ec2" {
+  name = "${var.environment}-jenkins-ec2-sg"
+  description = "Security group for jenkins ec2"
+  vpc_id = var.bastion_vpc_id
+
+  ingress{
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  }
+
+  egress{
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  }
+
+  tags = {
+        Name = "${var.environment}-jenkins-ec2-sg"
+        Environment = var.environment
+  }
+}

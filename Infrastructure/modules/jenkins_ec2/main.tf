@@ -46,6 +46,11 @@ resource "aws_instance" "jenkins_ec2" {
 
                               EOF
 )
+
+    iam_instance_profile = aws_iam_instance_profile.jenkins_profile.name
+
+    vpc_security_group_ids = module.security.jenkins_ec2_security_group_id
+
     tags = {
       Name = "${var.environment}-jenkins-ec2"
       Environment = var.environment
@@ -53,3 +58,68 @@ resource "aws_instance" "jenkins_ec2" {
 }
 
 #SSH the EC2 instance and then take password from there
+
+#Now creating iam role and policy so that jenkins can able to access the things inside aws.
+
+#Jenkins IAM role 
+resource "aws_iam_role" "jenkins_role" {
+    name = "jenkins_role"
+
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [{
+            Effect = "Allow"
+
+            principal = {
+                Service = "ec2.amazonaws.com"
+            }
+            Action = "sts:AssumeRole"
+        }]
+    })
+  
+}
+
+
+#Now give the policy
+resource "aws_iam_policy" "jenkins_policy" {
+
+  name = "jenkins-policy"
+
+  policy = jsonencode({
+
+    Version = "2012-10-17"
+
+    Statement = [
+
+      {
+        Effect = "Allow"
+
+        Action = [
+          "*"
+        ]
+
+        Resource = "*"
+      }
+
+    ]
+  })
+}
+
+
+#Attach policy to role
+resource "aws_iam_role_policy_attachment" "jenkins_attachment" {
+
+  role       = aws_iam_role.jenkins_role.name
+
+  policy_arn = aws_iam_policy.jenkins_policy.arn
+
+}
+
+#attach instance profile
+resource "aws_iam_instance_profile" "jenkins_profile" {
+
+  name = "jenkins-instance-profile"
+
+  role = aws_iam_role.jenkins_role.name
+
+}
