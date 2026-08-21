@@ -7,6 +7,11 @@ terraform {
       version = "6.40.0"
     }
   }
+  backend "s3" {
+    bucket = "dipanshu-7ea935fdf4424ea3"
+    key = "uat/terraform.tfstate"
+    region = "ap-south-1"
+  }
 }
 
 # AWS Default Regions

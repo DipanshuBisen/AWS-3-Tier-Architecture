@@ -1,3 +1,9 @@
+variable "AWS_region" {
+  description = "Default region for provider"
+  type        = string
+  default     = "ap-south-1"
+}
+
 variable "environment" {
   description = "Environment Name"
   type        = string
@@ -21,3 +27,4 @@ variable "azs_helper" {
   type        = list(string)
   default     = ["ap-south-1a", "ap-south-1b"]
 }
+
