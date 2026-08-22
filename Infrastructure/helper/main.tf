@@ -126,13 +126,37 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "helper" {
 resource "aws_ec2_transit_gateway_vpc_attachment" "dev" {
   subnet_ids = [ data.terraform_remote_state.dev.outputs.subnet_ids ]
   transit_gateway_id = aws_ec2_transit_gateway.main.id
-  vpc_id = e
+  vpc_id = data.terraform_remote_state.dev.outputs.vpc_id
 
   tags = {
-    Name = "${var.environment}-vpc-main-attachment"
-    Environment = var.environment
+    Name = "dev-vpc-main-attachment"
+    Environment = "dev"
   }
 }
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "dr" {
+  subnet_ids = [ data.terraform_remote_state.dr.outputs.subnet_ids ]
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+  vpc_id = data.terraform_remote_state.dr.outputs.vpc_id
+
+  tags = {
+    Name = "dr-vpc-main-attachment"
+    Environment = "dr"
+  }
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "preprod" {
+  subnet_ids = [data.terraform_remote_state.preprod.outputs.subnet_ids]
+  transit_gateway_id = aws_ec2_transit_gateway.main
+  vpc_id = data.terraform_remote_state.preprod.ouputs.vpc_id
+
+  tags = {
+    Name = "preprod-vpc-main-attachment"
+    Environment = "preprod"
+  }
+}
+
+re
 
 #Add Routes for both VPCs
 resource "aws_route" "bastion_to_main" {
