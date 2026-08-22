@@ -156,18 +156,49 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "preprod" {
   }
 }
 
-re
+resource "aws_ec2_transit_gateway_vpc_attachment" "prod" {
+  subnet_ids = [data.terraform_remote_state.prod.outputs.subnet_ids]
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+  vpc_id = data.terraform_remote_state.prod.outputs.vpc_id
 
-#Add Routes for both VPCs
-resource "aws_route" "bastion_to_main" {
-  route_table_id = module.bastion_vpc.bastion_public_route_table_id
-  destination_cidr_block = var.vpc_cidr
+  tags = {
+    Name = "prod-vpc-main-attachment"
+    Environment = "prod"
+  }
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "qa" {
+  subnet_ids = [ data.terraform_remote_state.qa.outputs.subnet_ids ]
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+  vpc_id = data.terraform_remote_state.qa.outputs.vpc_id
+
+  tags = {
+    Name = "qa-vpc-main-attachment"
+    Environment = "qa"
+  }
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "uat" {
+  subnet_ids = [ data.terraform_remote_state.uat.outputs.subnet_ids ]
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+  vpc_id = data.terraform_remote_state.uat.outputs.vpc_id
+
+  tags = {
+    Name = "uat-vpc-main-attachment"
+    Environment = "uat"
+  }
+}
+
+#Add Routes fo helper to all ENVs and ENVs to helper
+resource "aws_route" "helper_to_dev" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.dev.outputs.vpc_cidr
   transit_gateway_id = aws_ec2_transit_gateway.main.id
 }
 
-resource "aws_route" "main_to_bastion" {
-  route_table_id = [ module.vpc.private_route_table_ids ]
-  destination_cidr_block = var.bastion_vpc_cidr
+resource "aws_route" "dev_to_helper" {
+  route_table_id =  data.terraform_remote_state.dev.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
   transit_gateway_id = aws_ec2_transit_gateway.main.id
 }
 
