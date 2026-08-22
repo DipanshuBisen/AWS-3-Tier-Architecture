@@ -202,6 +202,66 @@ resource "aws_route" "dev_to_helper" {
   transit_gateway_id = aws_ec2_transit_gateway.main.id
 }
 
+resource "aws_route" "helper_to_dr" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.dr.outputs.vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "dr_to_helper" {
+  route_table_id =  data.terraform_remote_state.dr.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "helper_to_preprod" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.preprod.outputs.vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "preprod_to_helper" {
+  route_table_id =  data.terraform_remote_state.preprod.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "helper_to_prod" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.prod.outputs.vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "prod_to_helper" {
+  route_table_id =  data.terraform_remote_state.prod.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "helper_to_qa" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.qa.outputs.vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "qa_to_helper" {
+  route_table_id =  data.terraform_remote_state.qa.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "helper_to_uat" {
+  route_table_id = module.helper_vpc.helper_public_route_table_id
+  destination_cidr_block = data.terraform_remote_state.uat.outputs.vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
+resource "aws_route" "uat_to_helper" {
+  route_table_id =  data.terraform_remote_state.uat.outputs.private_route_table_ids
+  destination_cidr_block = var.helper_vpc_cidr
+  transit_gateway_id = aws_ec2_transit_gateway.main.id
+}
+
 #Jenkins EC2 instance
 module "jenkins_ec2" {
   source = "../modules/jenkins_ec2"
