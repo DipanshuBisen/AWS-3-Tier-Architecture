@@ -1,4 +1,4 @@
-output "heleper_public_subnet_id" {
+output "helper_public_subnet_id" {
   description = "Public subnet id of bastion hots"
   value = aws_subnet.public_helper.id
 }
