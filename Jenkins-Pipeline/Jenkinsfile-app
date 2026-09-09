@@ -45,7 +45,9 @@ pipeline {
                 echo 'Building...'
                 dir('Java-Login-App') {
                     sh '''
-                        echo "Building Java Application..."
+                        echo "========================================"
+                        echo "       BUILDING JAVA APPLICATION"
+                        echo "========================================"
                         mvn clean package -DskipTests
                     '''
                 }
@@ -55,18 +57,38 @@ pipeline {
         stage('Unit Test') {
             steps {
                 dir('Java-Login-App') {
-                sh '''
-                    echo "Running unit tests..."
-                    mvn test
-                '''
+                    sh '''
+                        echo "========================================"
+                        echo "          RUNNING UNIT TESTS"
+                        echo "========================================"
+
+                        mvn clean test
+                    '''
                 }
             }
-            
+
             post {
                 always {
-                    junit 'Java-Login-App/target/surefire-reports/*.xml'
+                    junit testResults: 'Java-Login-App/target/surefire-reports/*.xml',
+                    allowEmptyResults: false
                 }
-             }
+
+                success {
+                    echo "========================================"
+                    echo "       ALL UNIT TESTS PASSED"
+                    echo "       Continuing pipeline..."
+                    echo "========================================"
+                }
+
+                failure {
+                    echo "========================================"
+                    echo "       UNIT TESTS FAILED"
+                    echo "       PIPELINE STOPPED"
+                    echo "       Check JUnit results"
+                    echo "       and Console Output"
+                    echo "========================================"
+                }
+                }
         }
 
         stage('SonarQube Analysis') {
