@@ -268,4 +268,5 @@ module "jenkins_ec2" {
 
   environment = var.environment
   helper_subnet_id =module.helper_vpc.heleper_public_subnet_id
+  helper_vpc_id = module.helper_vpc.helper_vpc_id
 }
