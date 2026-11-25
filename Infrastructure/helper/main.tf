@@ -262,7 +262,7 @@ resource "aws_route" "uat_to_helper" {
   transit_gateway_id = aws_ec2_transit_gateway.main.id
 }
 
-#Jenkins EC2 instance
+#Jenkins Controller and Agent EC2 instance
 module "jenkins_ec2" {
   source = "../modules/jenkins_ec2"
 

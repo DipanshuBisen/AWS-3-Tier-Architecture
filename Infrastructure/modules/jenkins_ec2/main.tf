@@ -1,5 +1,6 @@
 #EC2 instance for Jenkins
 
+#EC2 Instance for the Controller
 resource "aws_instance" "jenkins_ec2" {
     ami = "ami-01a00762f46d584a1"
     instance_type = "t3.micro"
@@ -16,6 +17,18 @@ resource "aws_instance" "jenkins_ec2" {
       Name = "${var.environment}-jenkins-ec2"
       Environment = var.environment
     }
+}
+
+#EC2 instance for the Agent
+resource "aws_instance" "jenkins_ec2_agent" {
+  ami = "ami-01a00762f46d584a1"
+  instance_type = "t3.micro"
+  subnet_id = var.helper_subnet_id
+
+  tags = {
+    Name = "${var.environment}-jenkins-ec2-agent"
+    Environment = var.environment
+  }
 }
 
 #SSH the EC2 instance and then take password from there
@@ -83,4 +96,31 @@ resource "aws_iam_instance_profile" "jenkins_profile" {
 
   role = aws_iam_role.jenkins_role.name
 
+}
+
+
+#Security Group for Jenkins Ec2 instance 
+resource "aws_security_group" "jenkins_ec2" {
+  name = "${var.environment}-jenkins-ec2-sg"
+  description = "Security group for jenkins ec2"
+  vpc_id = var.helper_vpc_id
+
+  ingress{
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  }
+
+  egress{
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  }
+
+  tags = {
+        Name = "${var.environment}-jenkins-ec2-sg"
+        Environment = var.environment
+  }
 }
