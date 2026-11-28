@@ -34,12 +34,6 @@ variable "azs" {
   default     = ["ap-south-1a", "ap-south-1b"]
 }
 
-variable "allowed_ssh_cidr_block" {
-  description = "List of CIDR block to SSH to bation host"
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-}
-
 variable "db_name" {
   description = "Name of Database"
   type        = string
