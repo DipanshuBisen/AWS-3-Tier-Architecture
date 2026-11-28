@@ -1,3 +1,5 @@
+#Here this i have to apply manually and tf state file also will be locally only
+
 terraform {
   required_providers {
     aws = {
